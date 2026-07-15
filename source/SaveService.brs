@@ -11,14 +11,18 @@ function BrightBound_LoadProfile() as Object
 end function
 
 function BrightBound_EnsureProfileShape(profile as Object) as Object
-    if profile.cosmos = invalid
-        profile.cosmos = {
-            journeysCompleted: 0
-            knowledgeBeaconsCollected: 0
-            visitedGalaxyIds: []
-            usedShipIds: []
-        }
-    end if
+    if profile.cosmos = invalid then profile.cosmos = {}
+
+    if profile.cosmos.journeysCompleted = invalid then profile.cosmos.journeysCompleted = 0
+    if profile.cosmos.knowledgeBeaconsCollected = invalid then profile.cosmos.knowledgeBeaconsCollected = 0
+    if profile.cosmos.visitedGalaxyIds = invalid then profile.cosmos.visitedGalaxyIds = []
+    if profile.cosmos.usedShipIds = invalid then profile.cosmos.usedShipIds = []
+    if profile.cosmos.completedMissionIds = invalid then profile.cosmos.completedMissionIds = []
+    if profile.cosmos.completedBeaconIds = invalid then profile.cosmos.completedBeaconIds = []
+    if profile.cosmos.lastSelectedShipId = invalid then profile.cosmos.lastSelectedShipId = ""
+    if profile.cosmos.lastSelectedGalaxyId = invalid then profile.cosmos.lastSelectedGalaxyId = ""
+    if profile.cosmos.activeMissionCheckpoint = invalid then profile.cosmos.activeMissionCheckpoint = invalid
+
     return profile
 end function
 
@@ -64,6 +68,11 @@ function BrightBound_DefaultProfile() as Object
             knowledgeBeaconsCollected: 0
             visitedGalaxyIds: []
             usedShipIds: []
+            completedMissionIds: []
+            completedBeaconIds: []
+            lastSelectedShipId: ""
+            lastSelectedGalaxyId: ""
+            activeMissionCheckpoint: invalid
         }
         settings: {
             audioMuted: false

@@ -4,37 +4,102 @@
   <script type="text/brightscript" uri="pkg:/source/SaveService.brs" />
   <script type="text/brightscript" uri="pkg:/source/MasteryEngine.brs" />
   <children>
-    <Rectangle id="background" width="1920" height="1080" color="0x092E3AFF" />
+    <Rectangle id="background" width="1920" height="1080" color="0x061426FF" />
+
     <Group id="pondGroup">
-      <Label text="BrightBound" translation="[120,70]" width="900" height="90" font="font:LargeBoldSystemFont" />
-      <Label id="status" translation="[120,170]" width="1600" height="70" font="font:MediumSystemFont" />
-      <Rectangle id="pond" translation="[500,330]" width="920" height="360" color="0x1AA6A6FF" />
-      <Rectangle id="tail" translation="[790,480]" width="170" height="42" color="0x68D391FF" />
-      <Rectangle id="body" translation="[930,445]" width="150" height="105" color="0x68D391FF" />
-      <Label id="companionLabel" translation="[610,720]" width="700" height="60" horizAlign="center" font="font:MediumBoldSystemFont" />
-      <Label text="OK: Continue Learning     DOWN: Launch Terminal" translation="[460,840]" width="1000" height="60" horizAlign="center" font="font:MediumSystemFont" />
+      <Rectangle width="1920" height="620" color="0x09233CFF" />
+      <Rectangle translation="[0,620]" width="1920" height="460" color="0x0D4C63FF" />
+      <Rectangle translation="[0,755]" width="1920" height="325" color="0x116A75FF" />
+
+      <Rectangle translation="[1500,90]" width="170" height="170" color="0xFFE6A3FF" />
+      <Rectangle translation="[260,145]" width="16" height="16" color="0xF4FBFFFF" />
+      <Rectangle translation="[430,95]" width="12" height="12" color="0xF4FBFFFF" />
+      <Rectangle translation="[685,170]" width="14" height="14" color="0xF4FBFFFF" />
+      <Rectangle translation="[1090,110]" width="12" height="12" color="0xF4FBFFFF" />
+      <Rectangle translation="[1320,210]" width="16" height="16" color="0xF4FBFFFF" />
+
+      <Rectangle translation="[0,565]" width="520" height="120" color="0x173F3BFF" />
+      <Rectangle translation="[1400,545]" width="520" height="140" color="0x173F3BFF" />
+      <Rectangle translation="[85,510]" width="34" height="210" color="0x2E7A55FF" />
+      <Rectangle translation="[135,475]" width="26" height="245" color="0x3A9565FF" />
+      <Rectangle translation="[175,530]" width="30" height="190" color="0x2E7A55FF" />
+      <Rectangle translation="[1710,495]" width="30" height="225" color="0x3A9565FF" />
+      <Rectangle translation="[1760,520]" width="34" height="200" color="0x2E7A55FF" />
+
+      <Rectangle translation="[350,820]" width="250" height="54" color="0x55B978FF" />
+      <Rectangle translation="[1280,860]" width="220" height="50" color="0x55B978FF" />
+      <Rectangle translation="[760,930]" width="300" height="46" color="0x4AA96CFF" />
+
+      <Rectangle translation="[735,510]" width="450" height="25" color="0x7BCFC2FF" />
+      <Rectangle translation="[775,545]" width="370" height="20" color="0x65B8B3FF" />
+      <Rectangle translation="[820,580]" width="280" height="15" color="0x4CA0A1FF" />
+
+      <Rectangle id="tail" translation="[805,650]" width="170" height="38" color="0x74D88EFF" />
+      <Rectangle id="body" translation="[945,615]" width="150" height="105" color="0x74D88EFF" />
+      <Rectangle translation="[965,635]" width="24" height="24" color="0x061426FF" />
+      <Rectangle translation="[1050,635]" width="24" height="24" color="0x061426FF" />
+
+      <Rectangle translation="[80,45]" width="1760" height="170" color="0x071A2CDD" />
+      <Label text="BRIGHTBOUND" translation="[135,70]" width="720" height="75" font="font:LargeBoldSystemFont" color="0x71F7D4FF" />
+      <Label text="THE COSMIC POND" translation="[135,140]" width="720" height="45" font="font:MediumBoldSystemFont" color="0xFFE68AFF" />
+      <Label id="status" translation="[865,95]" width="900" height="70" horizAlign="right" font="font:MediumSystemFont" color="0xF4FBFFFF" />
+
+      <Rectangle translation="[560,750]" width="800" height="80" color="0x071A2CDD" />
+      <Label id="companionLabel" translation="[610,765]" width="700" height="55" horizAlign="center" font="font:MediumBoldSystemFont" color="0x9DF5B8FF" />
+      <Rectangle translation="[470,930]" width="980" height="90" color="0x102C43EE" />
+      <Label text="OK: Explore Knowledge     DOWN: Visit the Launchpad" translation="[500,950]" width="920" height="50" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
     </Group>
+
     <Group id="quizGroup" visible="false">
-      <Label text="Knowledge Challenge" translation="[120,80]" width="1000" height="80" font="font:LargeBoldSystemFont" />
-      <Label id="question" translation="[300,260]" width="1320" height="100" horizAlign="center" font="font:LargeBoldSystemFont" />
-      <Rectangle id="focusBox" translation="[400,450]" width="520" height="130" color="0xFFFFFF22" />
-      <Label id="answerA" translation="[420,470]" width="480" height="90" horizAlign="center" font="font:MediumBoldSystemFont" />
-      <Label id="answerB" translation="[1020,470]" width="480" height="90" horizAlign="center" font="font:MediumBoldSystemFont" />
-      <Label id="feedback" translation="[300,690]" width="1320" height="90" horizAlign="center" font="font:MediumSystemFont" />
-      <Label text="LEFT/RIGHT chooses - OK answers - BACK returns" translation="[430,900]" width="1060" height="60" horizAlign="center" font="font:SmallSystemFont" />
+      <Rectangle width="1920" height="1080" color="0x071A2CFF" />
+      <Rectangle translation="[0,0]" width="1920" height="250" color="0x0C3852FF" />
+      <Rectangle translation="[0,980]" width="1920" height="100" color="0x0D4C63FF" />
+      <Rectangle translation="[100,70]" width="1720" height="860" color="0x102C43FF" />
+      <Rectangle translation="[100,70]" width="1720" height="14" color="0x71F7D4FF" />
+      <Rectangle translation="[100,916]" width="1720" height="14" color="0xFFE68AFF" />
+
+      <Label text="KNOWLEDGE CONSTELLATION" translation="[180,115]" width="1560" height="75" horizAlign="center" font="font:LargeBoldSystemFont" color="0x71F7D4FF" />
+      <Label text="Each answer lights another star on your map." translation="[300,195]" width="1320" height="50" horizAlign="center" font="font:MediumSystemFont" color="0xCFE8F4FF" />
+
+      <Rectangle translation="[250,280]" width="1420" height="150" color="0x0B2136FF" />
+      <Label id="question" translation="[300,310]" width="1320" height="95" horizAlign="center" wrap="true" font="font:LargeBoldSystemFont" color="0xF4FBFFFF" />
+
+      <Rectangle id="focusBox" translation="[350,500]" width="560" height="145" color="0x71F7D444" />
+      <Rectangle translation="[370,520]" width="520" height="105" color="0x173F5AFF" />
+      <Rectangle translation="[1030,520]" width="520" height="105" color="0x173F5AFF" />
+      <Label id="answerA" translation="[390,540]" width="480" height="70" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
+      <Label id="answerB" translation="[1050,540]" width="480" height="70" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
+
+      <Rectangle translation="[300,700]" width="1320" height="105" color="0x0B2136FF" />
+      <Label id="feedback" translation="[340,720]" width="1240" height="65" horizAlign="center" wrap="true" font="font:MediumSystemFont" color="0x9DF5B8FF" />
+      <Label text="LEFT / RIGHT chooses     OK confirms     BACK returns to the pond" translation="[390,850]" width="1140" height="55" horizAlign="center" font="font:SmallSystemFont" color="0xB7C9D6FF" />
     </Group>
+
     <Group id="evolutionGroup" visible="false" opacity="1">
-      <Rectangle width="1920" height="1080" color="0x071D2AFF" />
-      <Rectangle id="rippleTwo" translation="[690,285]" width="540" height="520" color="0x56E0E011" />
-      <Rectangle id="rippleOne" translation="[770,365]" width="380" height="360" color="0x56E0E022" />
-      <Rectangle translation="[885,455]" width="150" height="105" color="0x77E08AFF" />
-      <Rectangle translation="[835,535]" width="45" height="80" color="0x77E08AFF" />
-      <Rectangle translation="[1040,535]" width="45" height="80" color="0x77E08AFF" />
-      <Label text="Your knowledge created a new ripple." translation="[300,720]" width="1320" height="80" horizAlign="center" font="font:LargeBoldSystemFont" />
-      <Label text="Spark Tadpole evolved into Pathfinder Polliwog" translation="[300,815]" width="1320" height="70" horizAlign="center" font="font:MediumSystemFont" />
-      <Rectangle translation="[710,915]" width="500" height="90" color="0x2F8F83FF" />
-      <Label text="Press OK to continue" translation="[710,935]" width="500" height="50" horizAlign="center" font="font:MediumBoldSystemFont" />
+      <Rectangle width="1920" height="1080" color="0x050E1AFF" />
+      <Rectangle translation="[0,600]" width="1920" height="480" color="0x0C3852FF" />
+      <Rectangle translation="[0,760]" width="1920" height="320" color="0x116A75FF" />
+      <Rectangle translation="[1475,80]" width="210" height="210" color="0xFFE6A3FF" />
+      <Rectangle translation="[300,130]" width="15" height="15" color="0xF4FBFFFF" />
+      <Rectangle translation="[520,90]" width="12" height="12" color="0xF4FBFFFF" />
+      <Rectangle translation="[880,155]" width="14" height="14" color="0xF4FBFFFF" />
+      <Rectangle translation="[1180,105]" width="12" height="12" color="0xF4FBFFFF" />
+
+      <Rectangle id="rippleTwo" translation="[620,300]" width="680" height="500" color="0x71F7D422" />
+      <Rectangle id="rippleOne" translation="[720,390]" width="480" height="320" color="0x71F7D444" />
+      <Rectangle translation="[885,455]" width="150" height="105" color="0x74D88EFF" />
+      <Rectangle translation="[835,535]" width="45" height="90" color="0x74D88EFF" />
+      <Rectangle translation="[1040,535]" width="45" height="90" color="0x74D88EFF" />
+      <Rectangle translation="[920,470]" width="24" height="24" color="0x061426FF" />
+      <Rectangle translation="[990,470]" width="24" height="24" color="0x061426FF" />
+
+      <Rectangle translation="[230,680]" width="1460" height="205" color="0x071A2CDD" />
+      <Label text="YOUR KNOWLEDGE CREATED A NEW RIPPLE" translation="[300,710]" width="1320" height="80" horizAlign="center" font="font:LargeBoldSystemFont" color="0xFFE68AFF" />
+      <Label text="Spark Tadpole evolved into Pathfinder Polliwog" translation="[300,800]" width="1320" height="60" horizAlign="center" font="font:MediumSystemFont" color="0xF4FBFFFF" />
+      <Rectangle translation="[710,925]" width="500" height="90" color="0x2F8F83FF" />
+      <Label text="Press OK to continue" translation="[710,945]" width="500" height="50" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
     </Group>
+
     <LaunchTerminalScreen id="launchTerminal" visible="false" />
     <FlightScreen id="flightScreen" visible="false" />
   </children>

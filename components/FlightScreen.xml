@@ -3,6 +3,7 @@
   <interface>
     <field id="journeyConfig" type="assocarray" onChange="OnJourneyConfigChanged" />
     <field id="journeyCompleted" type="assocarray" alwaysNotify="true" />
+    <field id="checkpointUpdated" type="assocarray" alwaysNotify="true" />
     <field id="closeRequested" type="boolean" alwaysNotify="true" />
   </interface>
   <script type="text/brightscript" uri="pkg:/components/FlightScreen.brs" />
@@ -22,7 +23,17 @@
     <Label id="beaconLabel1" text="2" translation="[925,440]" width="70" height="45" horizAlign="center" font="font:MediumBoldSystemFont" color="0x07111FFF" />
     <Label id="beaconLabel2" text="3" translation="[1450,340]" width="70" height="45" horizAlign="center" font="font:MediumBoldSystemFont" color="0x07111FFF" />
 
-    <Label id="prompt" translation="[250,835]" width="1420" height="80" horizAlign="center" wrap="true" font="font:MediumBoldSystemFont" />
-    <Label text="LEFT / RIGHT steer - OK scans beacon - BACK aborts safely" translation="[390,970]" width="1140" height="45" horizAlign="center" font="font:SmallSystemFont" color="0xB7C9D6FF" />
+    <Label id="prompt" translation="[250,825]" width="1420" height="70" horizAlign="center" wrap="true" font="font:MediumBoldSystemFont" />
+    <Label id="companionReaction" translation="[300,900]" width="1320" height="55" horizAlign="center" wrap="true" font="font:SmallSystemFont" color="0x9DF5B8FF" />
+    <Label text="LEFT / RIGHT steer - OK scans beacon - BACK aborts safely" translation="[390,985]" width="1140" height="45" horizAlign="center" font="font:SmallSystemFont" color="0xB7C9D6FF" />
+
+    <Group id="summaryGroup" visible="false">
+      <Rectangle translation="[330,180]" width="1260" height="720" color="0x102238FF" />
+      <Label text="Journey Complete" translation="[420,230]" width="1080" height="80" horizAlign="center" font="font:LargeBoldSystemFont" color="0xFFE68AFF" />
+      <Label id="summaryText" translation="[470,350]" width="980" height="360" wrap="true" font="font:MediumSystemFont" />
+      <Label id="summaryReaction" translation="[470,735]" width="980" height="70" horizAlign="center" wrap="true" font="font:MediumBoldSystemFont" color="0x9DF5B8FF" />
+      <Rectangle translation="[760,830]" width="400" height="90" color="0x2F8F83FF" />
+      <Label text="Continue" translation="[760,850]" width="400" height="50" horizAlign="center" font="font:MediumBoldSystemFont" />
+    </Group>
   </children>
 </component>

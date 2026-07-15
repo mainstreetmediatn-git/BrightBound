@@ -1,0 +1,18 @@
+{
+  "spacecrafts": [
+    {
+      "id": "stardust_x1",
+      "name": "Stardust Cruiser X1",
+      "type": "rocket",
+      "speed": 8,
+      "handling": "Agile"
+    },
+    {
+      "id": "lumina_saucer",
+      "name": "Lumina UFO",
+      "type": "ufo",
+      "speed": 10,
+      "handling": "Hover"
+    }
+  ]
+}

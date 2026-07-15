@@ -7,14 +7,27 @@ function BrightBound_LoadProfile() as Object
     parsed = ParseJson(raw)
     if parsed = invalid or type(parsed) <> "roAssociativeArray" then return defaults
     if parsed.schemaVersion <> "1.0.0" then return defaults
-    return parsed
+    return BrightBound_EnsureProfileShape(parsed)
+end function
+
+function BrightBound_EnsureProfileShape(profile as Object) as Object
+    if profile.cosmos = invalid
+        profile.cosmos = {
+            journeysCompleted: 0
+            knowledgeBeaconsCollected: 0
+            visitedGalaxyIds: []
+            usedShipIds: []
+        }
+    end if
+    return profile
 end function
 
 function BrightBound_SaveProfile(profile as Object) as Boolean
     if profile = invalid then return false
+    profile = BrightBound_EnsureProfileShape(profile)
     profile.updatedAt = CreateObject("roDateTime").ToISOString()
     section = CreateObject("roRegistrySection", "BrightBound")
-    section.Write("profile_backup", section.Read("profile"))
+    if section.Exists("profile") then section.Write("profile_backup", section.Read("profile"))
     section.Write("profile", FormatJson(profile))
     return section.Flush()
 end function
@@ -45,6 +58,12 @@ function BrightBound_DefaultProfile() as Object
             independentCorrect: 0
             correctedMistakes: 0
             conceptsDiscovered: {}
+        }
+        cosmos: {
+            journeysCompleted: 0
+            knowledgeBeaconsCollected: 0
+            visitedGalaxyIds: []
+            usedShipIds: []
         }
         settings: {
             audioMuted: false

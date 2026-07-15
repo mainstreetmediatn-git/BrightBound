@@ -3,6 +3,7 @@ sub Init()
     m.quizGroup = m.top.FindNode("quizGroup")
     m.evolutionGroup = m.top.FindNode("evolutionGroup")
     m.launchTerminal = m.top.FindNode("launchTerminal")
+    m.flightScreen = m.top.FindNode("flightScreen")
     m.status = m.top.FindNode("status")
     m.companionLabel = m.top.FindNode("companionLabel")
     m.question = m.top.FindNode("question")
@@ -11,7 +12,11 @@ sub Init()
     m.feedback = m.top.FindNode("feedback")
     m.focusBox = m.top.FindNode("focusBox")
     m.evolutionFade = m.top.FindNode("evolutionFade")
+
     m.launchTerminal.ObserveField("closeRequested", "OnLaunchTerminalClose")
+    m.launchTerminal.ObserveField("launchRequested", "OnLaunchRequested")
+    m.flightScreen.ObserveField("journeyCompleted", "OnJourneyCompleted")
+    m.flightScreen.ObserveField("closeRequested", "OnFlightClose")
 
     m.questions = [
         { conceptId: "add_1", prompt: "1 + 2 = ?", answers: ["3", "4"], correct: 0 },
@@ -27,27 +32,32 @@ sub Init()
     m.questionIndex = 0
     m.selectedAnswer = 0
     m.hadIncorrectAttempt = false
+    m.flightWasCompleted = false
     RenderPond()
     m.top.SetFocus(true)
 end sub
 
-sub RenderPond()
-    m.pondGroup.visible = true
+sub HideAllScreens()
+    m.pondGroup.visible = false
     m.quizGroup.visible = false
     m.evolutionGroup.visible = false
     m.launchTerminal.visible = false
+    m.flightScreen.visible = false
+end sub
+
+sub RenderPond()
+    HideAllScreens()
+    m.pondGroup.visible = true
     stageName = "Spark Tadpole"
     if m.profile.companion.stageId = "pathfinder_polliwog" then stageName = "Pathfinder Polliwog"
     m.companionLabel.text = stageName
-    m.status.text = m.profile.displayName + " - " + m.profile.learnerTitle + " | Ideas discovered: " + BrightBound_ConceptCount(m.profile).ToStr()
+    m.status.text = m.profile.displayName + " - " + m.profile.learnerTitle + " | Ideas: " + BrightBound_ConceptCount(m.profile).ToStr() + " | Journeys: " + m.profile.cosmos.journeysCompleted.ToStr()
     m.top.SetFocus(true)
 end sub
 
 sub OpenLaunchTerminal()
+    HideAllScreens()
     m.screenName = "launch"
-    m.pondGroup.visible = false
-    m.quizGroup.visible = false
-    m.evolutionGroup.visible = false
     m.launchTerminal.closeRequested = false
     m.launchTerminal.visible = true
     m.launchTerminal.SetFocus(true)
@@ -60,9 +70,58 @@ sub OnLaunchTerminalClose()
     end if
 end sub
 
+sub OnLaunchRequested()
+    config = m.launchTerminal.launchRequested
+    if config = invalid then return
+    HideAllScreens()
+    m.screenName = "flight"
+    m.flightWasCompleted = false
+    m.flightScreen.closeRequested = false
+    m.flightScreen.journeyCompleted = invalid
+    m.flightScreen.journeyConfig = config
+    m.flightScreen.visible = true
+    m.flightScreen.SetFocus(true)
+end sub
+
+function ArrayHasValue(items as Object, target as String) as Boolean
+    for each item in items
+        if item = target then return true
+    end for
+    return false
+end function
+
+sub OnJourneyCompleted()
+    result = m.flightScreen.journeyCompleted
+    if result = invalid or result.completed <> true or m.flightWasCompleted then return
+
+    m.flightWasCompleted = true
+    m.profile = BrightBound_EnsureProfileShape(m.profile)
+    m.profile.cosmos.journeysCompleted = m.profile.cosmos.journeysCompleted + 1
+    m.profile.cosmos.knowledgeBeaconsCollected = m.profile.cosmos.knowledgeBeaconsCollected + result.beaconsCollected
+
+    if result.galaxyId <> "" and not ArrayHasValue(m.profile.cosmos.visitedGalaxyIds, result.galaxyId)
+        m.profile.cosmos.visitedGalaxyIds.Push(result.galaxyId)
+    end if
+    if result.shipId <> "" and not ArrayHasValue(m.profile.cosmos.usedShipIds, result.shipId)
+        m.profile.cosmos.usedShipIds.Push(result.shipId)
+    end if
+
+    BrightBound_SaveProfile(m.profile)
+end sub
+
+sub OnFlightClose()
+    if not m.flightScreen.closeRequested then return
+    if m.flightWasCompleted
+        m.screenName = "pond"
+        RenderPond()
+    else
+        OpenLaunchTerminal()
+    end if
+end sub
+
 sub StartQuiz()
+    HideAllScreens()
     m.screenName = "quiz"
-    m.pondGroup.visible = false
     m.quizGroup.visible = true
     m.feedback.text = ""
     ShowQuestion()
@@ -110,8 +169,8 @@ sub SubmitAnswer()
 end sub
 
 sub BeginEvolution()
+    HideAllScreens()
     m.screenName = "evolution"
-    m.quizGroup.visible = false
     m.evolutionGroup.visible = true
     m.evolutionFade.control = "start"
 end sub
@@ -157,7 +216,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             return true
         end if
         return true
-    else if m.screenName = "launch"
+    else if m.screenName = "launch" or m.screenName = "flight"
         return false
     end if
 

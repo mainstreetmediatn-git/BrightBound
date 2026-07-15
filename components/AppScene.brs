@@ -4,6 +4,7 @@ sub Init()
     m.evolutionGroup = m.top.FindNode("evolutionGroup")
     m.launchTerminal = m.top.FindNode("launchTerminal")
     m.flightScreen = m.top.FindNode("flightScreen")
+    m.profileSelection = m.top.FindNode("profileSelection")
     m.status = m.top.FindNode("status")
     m.companionLabel = m.top.FindNode("companionLabel")
     m.question = m.top.FindNode("question")
@@ -12,8 +13,10 @@ sub Init()
     m.feedback = m.top.FindNode("feedback")
     m.focusBox = m.top.FindNode("focusBox")
 
+    m.profileSelection.ObserveField("selectedProfileId", "OnProfileSelected")
     m.launchTerminal.ObserveField("closeRequested", "OnLaunchTerminalClose")
     m.launchTerminal.ObserveField("launchRequested", "OnLaunchRequested")
+    m.flightScreen.ObserveField("checkpointUpdated", "OnCheckpointUpdated")
     m.flightScreen.ObserveField("journeyCompleted", "OnJourneyCompleted")
     m.flightScreen.ObserveField("closeRequested", "OnFlightClose")
 
@@ -26,8 +29,45 @@ sub Init()
         { conceptId: "add_3", prompt: "5 + 2 = ?", answers: ["6", "7"], correct: 1 }
     ]
 
-    m.profile = BrightBound_LoadProfile()
-    m.screenName = "pond"
+    m.profile = invalid
+    m.screenName = "profiles"
+    m.questionIndex = 0
+    m.selectedAnswer = 0
+    m.hadIncorrectAttempt = false
+    m.flightWasCompleted = false
+    m.profileRefreshNonce = 1
+    ShowProfileSelection()
+end sub
+
+sub HideAllScreens()
+    m.pondGroup.visible = false
+    m.quizGroup.visible = false
+    m.evolutionGroup.visible = false
+    m.launchTerminal.visible = false
+    m.flightScreen.visible = false
+    m.profileSelection.visible = false
+end sub
+
+sub ShowProfileSelection()
+    if m.profile <> invalid then BrightBound_SaveProfile(m.profile)
+    HideAllScreens()
+    m.screenName = "profiles"
+    m.profile = invalid
+    m.profileRefreshNonce = m.profileRefreshNonce + 1
+    m.profileSelection.refreshNonce = m.profileRefreshNonce
+    m.profileSelection.visible = true
+    m.profileSelection.SetFocus(true)
+end sub
+
+sub OnProfileSelected()
+    profileId = m.profileSelection.selectedProfileId
+    if profileId = invalid or profileId = "" then return
+
+    selectedProfile = BrightBound_LoadProfileById(profileId)
+    if selectedProfile = invalid then return
+
+    BrightBound_SetActiveProfileId(profileId)
+    m.profile = selectedProfile
     m.questionIndex = 0
     m.selectedAnswer = 0
     m.hadIncorrectAttempt = false
@@ -40,25 +80,23 @@ sub Init()
     end if
 end sub
 
-sub HideAllScreens()
-    m.pondGroup.visible = false
-    m.quizGroup.visible = false
-    m.evolutionGroup.visible = false
-    m.launchTerminal.visible = false
-    m.flightScreen.visible = false
-end sub
-
 sub RenderPond()
+    if m.profile = invalid
+        ShowProfileSelection()
+        return
+    end if
+
     HideAllScreens()
+    m.screenName = "pond"
     m.pondGroup.visible = true
-    stageName = "Spark Tadpole"
-    if m.profile.companion.stageId = "pathfinder_polliwog" then stageName = "Pathfinder Polliwog"
+    stageName = BrightBound_CompanionStageName(m.profile.companion.stageId)
     m.companionLabel.text = stageName
     m.status.text = m.profile.displayName + " - " + m.profile.learnerTitle + " | Ideas: " + BrightBound_ConceptCount(m.profile).ToStr() + " | Journeys: " + m.profile.cosmos.journeysCompleted.ToStr()
     m.top.SetFocus(true)
 end sub
 
 sub OpenLaunchTerminal()
+    if m.profile = invalid then return
     HideAllScreens()
     m.screenName = "launch"
     m.launchTerminal.closeRequested = false
@@ -74,8 +112,22 @@ sub OnLaunchTerminalClose()
 end sub
 
 sub OnLaunchRequested()
+    if m.profile = invalid then return
     config = m.launchTerminal.launchRequested
     if config = invalid then return
+
+    m.profile = BrightBound_EnsureProfileShape(m.profile)
+    if config.shipId <> invalid then m.profile.cosmos.lastSelectedShipId = config.shipId
+    if config.galaxyId <> invalid then m.profile.cosmos.lastSelectedGalaxyId = config.galaxyId
+    m.profile.cosmos.activeMissionCheckpoint = {
+        missionId: ""
+        shipId: m.profile.cosmos.lastSelectedShipId
+        galaxyId: m.profile.cosmos.lastSelectedGalaxyId
+        completedBeaconIds: []
+        mistakesCorrected: 0
+    }
+    BrightBound_SaveProfile(m.profile)
+
     HideAllScreens()
     m.screenName = "flight"
     m.flightWasCompleted = false
@@ -87,28 +139,66 @@ sub OnLaunchRequested()
 end sub
 
 function ArrayHasValue(items as Object, target as String) as Boolean
+    if items = invalid then return false
     for each item in items
         if item = target then return true
     end for
     return false
 end function
 
+sub AddUniqueValues(target as Object, additions as Object)
+    if target = invalid or additions = invalid then return
+    for each value in additions
+        if not ArrayHasValue(target, value) then target.Push(value)
+    end for
+end sub
+
+sub OnCheckpointUpdated()
+    if m.profile = invalid then return
+    checkpoint = m.flightScreen.checkpointUpdated
+    if checkpoint = invalid then return
+
+    m.profile = BrightBound_EnsureProfileShape(m.profile)
+    m.profile.cosmos.activeMissionCheckpoint = checkpoint
+    if checkpoint.shipId <> invalid and checkpoint.shipId <> "" then m.profile.cosmos.lastSelectedShipId = checkpoint.shipId
+    if checkpoint.galaxyId <> invalid and checkpoint.galaxyId <> "" then m.profile.cosmos.lastSelectedGalaxyId = checkpoint.galaxyId
+    if checkpoint.completedBeaconIds <> invalid then AddUniqueValues(m.profile.cosmos.completedBeaconIds, checkpoint.completedBeaconIds)
+    BrightBound_SaveProfile(m.profile)
+end sub
+
 sub OnJourneyCompleted()
+    if m.profile = invalid then return
     result = m.flightScreen.journeyCompleted
     if result = invalid or result.completed <> true or m.flightWasCompleted then return
 
     m.flightWasCompleted = true
     m.profile = BrightBound_EnsureProfileShape(m.profile)
-    m.profile.cosmos.journeysCompleted = m.profile.cosmos.journeysCompleted + 1
-    m.profile.cosmos.knowledgeBeaconsCollected = m.profile.cosmos.knowledgeBeaconsCollected + result.beaconsCollected
 
-    if result.galaxyId <> "" and not ArrayHasValue(m.profile.cosmos.visitedGalaxyIds, result.galaxyId)
+    isFirstMissionCompletion = true
+    if result.missionId <> invalid and result.missionId <> ""
+        if ArrayHasValue(m.profile.cosmos.completedMissionIds, result.missionId)
+            isFirstMissionCompletion = false
+        else
+            m.profile.cosmos.completedMissionIds.Push(result.missionId)
+        end if
+    end if
+
+    if isFirstMissionCompletion
+        m.profile.cosmos.journeysCompleted = m.profile.cosmos.journeysCompleted + 1
+        m.profile.cosmos.knowledgeBeaconsCollected = m.profile.cosmos.knowledgeBeaconsCollected + result.beaconsCollected
+    end if
+
+    if result.beaconIds <> invalid then AddUniqueValues(m.profile.cosmos.completedBeaconIds, result.beaconIds)
+    if result.galaxyId <> invalid and result.galaxyId <> "" and not ArrayHasValue(m.profile.cosmos.visitedGalaxyIds, result.galaxyId)
         m.profile.cosmos.visitedGalaxyIds.Push(result.galaxyId)
     end if
-    if result.shipId <> "" and not ArrayHasValue(m.profile.cosmos.usedShipIds, result.shipId)
+    if result.shipId <> invalid and result.shipId <> "" and not ArrayHasValue(m.profile.cosmos.usedShipIds, result.shipId)
         m.profile.cosmos.usedShipIds.Push(result.shipId)
     end if
 
+    if result.shipId <> invalid then m.profile.cosmos.lastSelectedShipId = result.shipId
+    if result.galaxyId <> invalid then m.profile.cosmos.lastSelectedGalaxyId = result.galaxyId
+    m.profile.cosmos.activeMissionCheckpoint = invalid
     BrightBound_SaveProfile(m.profile)
 end sub
 
@@ -123,6 +213,7 @@ sub OnFlightClose()
 end sub
 
 sub StartQuiz()
+    if m.profile = invalid then return
     HideAllScreens()
     m.screenName = "quiz"
     m.quizGroup.visible = true
@@ -142,13 +233,14 @@ end sub
 
 sub UpdateAnswerFocus()
     if m.selectedAnswer = 0
-        m.focusBox.translation = [400, 450]
+        m.focusBox.translation = [350, 500]
     else
-        m.focusBox.translation = [1000, 450]
+        m.focusBox.translation = [1010, 500]
     end if
 end sub
 
 sub SubmitAnswer()
+    if m.profile = invalid then return
     q = m.questions[m.questionIndex mod m.questions.Count()]
     isCorrect = m.selectedAnswer = q.correct
     if isCorrect
@@ -168,10 +260,12 @@ sub SubmitAnswer()
         m.profile = BrightBound_RecordAnswer(m.profile, q.conceptId, false, false, false)
         m.hadIncorrectAttempt = true
         m.feedback.text = "Not yet. Try the other answer - your tadpole is learning with you."
+        BrightBound_SaveProfile(m.profile)
     end if
 end sub
 
 sub BeginEvolution()
+    if m.profile = invalid then return
     HideAllScreens()
     m.screenName = "evolution"
     m.evolutionGroup.opacity = 1
@@ -180,6 +274,7 @@ sub BeginEvolution()
 end sub
 
 sub FinishEvolution()
+    if m.profile = invalid then return
     m.profile = BrightBound_CompleteFirstRipple(m.profile)
     BrightBound_SaveProfile(m.profile)
     m.screenName = "pond"
@@ -189,12 +284,17 @@ end sub
 function onKeyEvent(key as String, press as Boolean) as Boolean
     if not press then return false
 
-    if m.screenName = "pond"
+    if m.screenName = "profiles"
+        return false
+    else if m.screenName = "pond"
         if key = "OK"
             StartQuiz()
             return true
         else if key = "down"
             OpenLaunchTerminal()
+            return true
+        else if key = "back"
+            ShowProfileSelection()
             return true
         end if
     else if m.screenName = "quiz"

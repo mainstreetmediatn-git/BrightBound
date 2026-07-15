@@ -2,6 +2,7 @@ sub Init()
     m.pondGroup = m.top.FindNode("pondGroup")
     m.quizGroup = m.top.FindNode("quizGroup")
     m.evolutionGroup = m.top.FindNode("evolutionGroup")
+    m.launchTerminal = m.top.FindNode("launchTerminal")
     m.status = m.top.FindNode("status")
     m.companionLabel = m.top.FindNode("companionLabel")
     m.question = m.top.FindNode("question")
@@ -10,6 +11,7 @@ sub Init()
     m.feedback = m.top.FindNode("feedback")
     m.focusBox = m.top.FindNode("focusBox")
     m.evolutionFade = m.top.FindNode("evolutionFade")
+    m.launchTerminal.ObserveField("closeRequested", "OnLaunchTerminalClose")
 
     m.questions = [
         { conceptId: "add_1", prompt: "1 + 2 = ?", answers: ["3", "4"], correct: 0 },
@@ -33,10 +35,29 @@ sub RenderPond()
     m.pondGroup.visible = true
     m.quizGroup.visible = false
     m.evolutionGroup.visible = false
+    m.launchTerminal.visible = false
     stageName = "Spark Tadpole"
     if m.profile.companion.stageId = "pathfinder_polliwog" then stageName = "Pathfinder Polliwog"
     m.companionLabel.text = stageName
     m.status.text = m.profile.displayName + " - " + m.profile.learnerTitle + " | Ideas discovered: " + BrightBound_ConceptCount(m.profile).ToStr()
+    m.top.SetFocus(true)
+end sub
+
+sub OpenLaunchTerminal()
+    m.screenName = "launch"
+    m.pondGroup.visible = false
+    m.quizGroup.visible = false
+    m.evolutionGroup.visible = false
+    m.launchTerminal.closeRequested = false
+    m.launchTerminal.visible = true
+    m.launchTerminal.SetFocus(true)
+end sub
+
+sub OnLaunchTerminalClose()
+    if m.launchTerminal.closeRequested
+        m.screenName = "pond"
+        RenderPond()
+    end if
 end sub
 
 sub StartQuiz()
@@ -109,6 +130,9 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
         if key = "OK"
             StartQuiz()
             return true
+        else if key = "down"
+            OpenLaunchTerminal()
+            return true
         end if
     else if m.screenName = "quiz"
         if key = "left"
@@ -133,6 +157,8 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             return true
         end if
         return true
+    else if m.screenName = "launch"
+        return false
     end if
 
     return false

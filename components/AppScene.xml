@@ -5,39 +5,35 @@
   <script type="text/brightscript" uri="pkg:/source/MasteryEngine.brs" />
   <children>
     <Rectangle id="background" width="1920" height="1080" color="0x092E3AFF" />
-
     <Group id="pondGroup">
-      <Label id="title" text="BrightBound" translation="[120,70]" width="900" height="90" font="font:LargeBoldSystemFont" />
+      <Label text="BrightBound" translation="[120,70]" width="900" height="90" font="font:LargeBoldSystemFont" />
       <Label id="status" translation="[120,170]" width="1500" height="70" font="font:MediumSystemFont" />
-      <Ellipse id="pond" translation="[560,330]" width="800" height="360" color="0x1AA6A6FF" />
-      <Ellipse id="body" translation="[900,445]" width="150" height="95" color="0x68D391FF" />
-      <Ellipse id="tail" translation="[780,475]" width="180" height="42" color="0x68D391FF" />
-      <Label id="companionLabel" translation="[680,720]" width="700" height="60" horizAlign="center" font="font:MediumBoldSystemFont" />
-      <Label id="instruction" text="Press OK to continue learning" translation="[590,840]" width="740" height="60" horizAlign="center" font="font:MediumSystemFont" />
+      <Rectangle id="pond" translation="[500,330]" width="920" height="360" color="0x1AA6A6FF" />
+      <Rectangle id="tail" translation="[790,480]" width="170" height="42" color="0x68D391FF" />
+      <Rectangle id="body" translation="[930,445]" width="150" height="105" color="0x68D391FF" />
+      <Label id="companionLabel" translation="[610,720]" width="700" height="60" horizAlign="center" font="font:MediumBoldSystemFont" />
+      <Label text="Press OK to continue learning" translation="[590,840]" width="740" height="60" horizAlign="center" font="font:MediumSystemFont" />
     </Group>
-
     <Group id="quizGroup" visible="false">
       <Label text="Knowledge Challenge" translation="[120,80]" width="1000" height="80" font="font:LargeBoldSystemFont" />
       <Label id="question" translation="[300,260]" width="1320" height="100" horizAlign="center" font="font:LargeBoldSystemFont" />
+      <Rectangle id="focusBox" translation="[400,450]" width="520" height="130" color="0xFFFFFF22" />
       <Label id="answerA" translation="[420,470]" width="480" height="90" horizAlign="center" font="font:MediumBoldSystemFont" />
       <Label id="answerB" translation="[1020,470]" width="480" height="90" horizAlign="center" font="font:MediumBoldSystemFont" />
-      <Rectangle id="focusBox" translation="[400,450]" width="520" height="130" color="0xFFFFFF22" />
       <Label id="feedback" translation="[300,690]" width="1320" height="90" horizAlign="center" font="font:MediumSystemFont" />
-      <Label text="LEFT/RIGHT chooses • OK answers • BACK returns" translation="[430,900]" width="1060" height="60" horizAlign="center" font="font:SmallSystemFont" />
+      <Label text="LEFT/RIGHT chooses - OK answers - BACK returns" translation="[430,900]" width="1060" height="60" horizAlign="center" font="font:SmallSystemFont" />
     </Group>
-
     <Group id="evolutionGroup" visible="false" opacity="0">
       <Rectangle width="1920" height="1080" color="0x071D2AFF" />
-      <Ellipse id="rippleOne" translation="[760,340]" width="400" height="400" color="0x56E0E022" />
-      <Ellipse id="rippleTwo" translation="[700,280]" width="520" height="520" color="0x56E0E011" />
-      <Ellipse translation="[885,455]" width="150" height="105" color="0x77E08AFF" />
-      <Ellipse translation="[835,535]" width="45" height="80" color="0x77E08AFF" />
-      <Ellipse translation="[1040,535]" width="45" height="80" color="0x77E08AFF" />
+      <Rectangle id="rippleTwo" translation="[690,285]" width="540" height="520" color="0x56E0E011" />
+      <Rectangle id="rippleOne" translation="[770,365]" width="380" height="360" color="0x56E0E022" />
+      <Rectangle translation="[885,455]" width="150" height="105" color="0x77E08AFF" />
+      <Rectangle translation="[835,535]" width="45" height="80" color="0x77E08AFF" />
+      <Rectangle translation="[1040,535]" width="45" height="80" color="0x77E08AFF" />
       <Label text="Your knowledge created a new ripple." translation="[300,720]" width="1320" height="80" horizAlign="center" font="font:LargeBoldSystemFont" />
       <Label text="Spark Tadpole evolved into Pathfinder Polliwog" translation="[300,815]" width="1320" height="70" horizAlign="center" font="font:MediumSystemFont" />
       <Label text="Press OK to return to the pond" translation="[500,930]" width="920" height="50" horizAlign="center" font="font:SmallSystemFont" />
     </Group>
-
     <Animation id="evolutionFade" duration="1.2" easeFunction="inOutQuad">
       <FloatFieldInterpolator key="[0.0,1.0]" keyValue="[0.0,1.0]" fieldToInterp="evolutionGroup.opacity" />
     </Animation>

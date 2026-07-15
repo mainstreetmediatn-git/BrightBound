@@ -59,6 +59,21 @@ function WrapIndex(value as Integer, count as Integer) as Integer
     return value mod count
 end function
 
+sub RequestLaunch()
+    if m.spacecrafts.Count() = 0 or m.galaxies.Count() = 0
+        m.eventTickerText.text = "A spacecraft and galaxy are required before launch."
+        return
+    end if
+    craft = m.spacecrafts[m.selectedShipIdx]
+    galaxy = m.galaxies[m.selectedGalaxyIdx]
+    m.top.launchRequested = {
+        shipId: craft.id
+        shipName: craft.name
+        galaxyId: galaxy.id
+        galaxyName: galaxy.name
+    }
+end sub
+
 function onKeyEvent(key as String, press as Boolean) as Boolean
     if not press then return false
     if key = "left" and m.spacecrafts.Count() > 0
@@ -78,7 +93,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
         RenderTerminalView()
         return true
     else if key = "OK"
-        m.eventTickerText.text = "Journey prepared. Flight gameplay arrives in the next engine phase."
+        RequestLaunch()
         return true
     else if key = "back"
         m.top.closeRequested = true

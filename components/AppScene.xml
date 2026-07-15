@@ -23,7 +23,7 @@
       <Label id="feedback" translation="[300,690]" width="1320" height="90" horizAlign="center" font="font:MediumSystemFont" />
       <Label text="LEFT/RIGHT chooses - OK answers - BACK returns" translation="[430,900]" width="1060" height="60" horizAlign="center" font="font:SmallSystemFont" />
     </Group>
-    <Group id="evolutionGroup" visible="false" opacity="0">
+    <Group id="evolutionGroup" visible="false" opacity="1">
       <Rectangle width="1920" height="1080" color="0x071D2AFF" />
       <Rectangle id="rippleTwo" translation="[690,285]" width="540" height="520" color="0x56E0E011" />
       <Rectangle id="rippleOne" translation="[770,365]" width="380" height="360" color="0x56E0E022" />
@@ -32,12 +32,10 @@
       <Rectangle translation="[1040,535]" width="45" height="80" color="0x77E08AFF" />
       <Label text="Your knowledge created a new ripple." translation="[300,720]" width="1320" height="80" horizAlign="center" font="font:LargeBoldSystemFont" />
       <Label text="Spark Tadpole evolved into Pathfinder Polliwog" translation="[300,815]" width="1320" height="70" horizAlign="center" font="font:MediumSystemFont" />
-      <Label text="Press OK to return to the pond" translation="[500,930]" width="920" height="50" horizAlign="center" font="font:SmallSystemFont" />
+      <Rectangle translation="[710,915]" width="500" height="90" color="0x2F8F83FF" />
+      <Label text="Press OK to continue" translation="[710,935]" width="500" height="50" horizAlign="center" font="font:MediumBoldSystemFont" />
     </Group>
     <LaunchTerminalScreen id="launchTerminal" visible="false" />
     <FlightScreen id="flightScreen" visible="false" />
-    <Animation id="evolutionFade" duration="1.2" easeFunction="inOutQuad">
-      <FloatFieldInterpolator key="[0.0,1.0]" keyValue="[0.0,1.0]" fieldToInterp="evolutionGroup.opacity" />
-    </Animation>
   </children>
 </component>

@@ -6,8 +6,13 @@ sub Init()
     m.flightScreen = m.top.FindNode("flightScreen")
     m.profileSelection = m.top.FindNode("profileSelection")
     m.status = m.top.FindNode("status")
+    m.profileTitle = m.top.FindNode("profileTitle")
+    m.ideasValue = m.top.FindNode("ideasValue")
+    m.journeysValue = m.top.FindNode("journeysValue")
     m.companionLabel = m.top.FindNode("companionLabel")
     m.question = m.top.FindNode("question")
+    m.quizStep = m.top.FindNode("quizStep")
+    m.conceptChip = m.top.FindNode("conceptChip")
     m.answerA = m.top.FindNode("answerA")
     m.answerB = m.top.FindNode("answerB")
     m.feedback = m.top.FindNode("feedback")
@@ -90,8 +95,14 @@ sub RenderPond()
     m.screenName = "pond"
     m.pondGroup.visible = true
     stageName = BrightBound_CompanionStageName(m.profile.companion.stageId)
+    ideasCount = BrightBound_ConceptCount(m.profile)
+    journeyCount = m.profile.cosmos.journeysCompleted
+
+    m.profileTitle.text = m.profile.displayName
+    m.status.text = m.profile.learnerTitle + "  •  " + stageName
+    m.ideasValue.text = ideasCount.ToStr()
+    m.journeysValue.text = "JOURNEYS  " + journeyCount.ToStr()
     m.companionLabel.text = stageName
-    m.status.text = m.profile.displayName + " - " + m.profile.learnerTitle + " | Ideas: " + BrightBound_ConceptCount(m.profile).ToStr() + " | Journeys: " + m.profile.cosmos.journeysCompleted.ToStr()
     m.top.SetFocus(true)
 end sub
 
@@ -217,12 +228,16 @@ sub StartQuiz()
     HideAllScreens()
     m.screenName = "quiz"
     m.quizGroup.visible = true
-    m.feedback.text = ""
+    m.feedback.text = "Choose the answer that feels right."
     ShowQuestion()
 end sub
 
 sub ShowQuestion()
-    q = m.questions[m.questionIndex mod m.questions.Count()]
+    questionCount = m.questions.Count()
+    displayIndex = (m.questionIndex mod questionCount) + 1
+    q = m.questions[m.questionIndex mod questionCount]
+    m.quizStep.text = "QUESTION " + displayIndex.ToStr() + " OF " + questionCount.ToStr()
+    m.conceptChip.text = "ADDITION  •  STAR PATH"
     m.question.text = q.prompt
     m.answerA.text = q.answers[0]
     m.answerB.text = q.answers[1]
@@ -233,9 +248,9 @@ end sub
 
 sub UpdateAnswerFocus()
     if m.selectedAnswer = 0
-        m.focusBox.translation = [350, 500]
+        m.focusBox.translation = [310, 515]
     else
-        m.focusBox.translation = [1010, 500]
+        m.focusBox.translation = [1010, 515]
     end if
 end sub
 
@@ -245,7 +260,7 @@ sub SubmitAnswer()
     isCorrect = m.selectedAnswer = q.correct
     if isCorrect
         m.profile = BrightBound_RecordAnswer(m.profile, q.conceptId, true, false, m.hadIncorrectAttempt)
-        m.feedback.text = "You figured it out!"
+        m.feedback.text = "You found it! A new star joined your map."
         BrightBound_SaveProfile(m.profile)
         m.questionIndex = m.questionIndex + 1
 
@@ -259,7 +274,7 @@ sub SubmitAnswer()
     else
         m.profile = BrightBound_RecordAnswer(m.profile, q.conceptId, false, false, false)
         m.hadIncorrectAttempt = true
-        m.feedback.text = "Not yet. Try the other answer - your tadpole is learning with you."
+        m.feedback.text = "Almost! Your companion believes in you—try the other star."
         BrightBound_SaveProfile(m.profile)
     end if
 end sub

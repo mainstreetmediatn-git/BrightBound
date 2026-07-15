@@ -2,6 +2,7 @@
 <component name="LaunchTerminalScreen" extends="Group">
   <interface>
     <field id="closeRequested" type="boolean" alwaysNotify="true" />
+    <field id="launchRequested" type="assocarray" alwaysNotify="true" />
   </interface>
   <script type="text/brightscript" uri="pkg:/components/LaunchTerminalScreen.brs" />
   <script type="text/brightscript" uri="pkg:/source/ContentService.brs" />

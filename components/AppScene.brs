@@ -11,7 +11,6 @@ sub Init()
     m.answerB = m.top.FindNode("answerB")
     m.feedback = m.top.FindNode("feedback")
     m.focusBox = m.top.FindNode("focusBox")
-    m.evolutionFade = m.top.FindNode("evolutionFade")
 
     m.launchTerminal.ObserveField("closeRequested", "OnLaunchTerminalClose")
     m.launchTerminal.ObserveField("launchRequested", "OnLaunchRequested")
@@ -33,8 +32,12 @@ sub Init()
     m.selectedAnswer = 0
     m.hadIncorrectAttempt = false
     m.flightWasCompleted = false
-    RenderPond()
-    m.top.SetFocus(true)
+
+    if m.profile.companion.pendingEvolutionId = "frog_first_ripple"
+        BeginEvolution()
+    else
+        RenderPond()
+    end if
 end sub
 
 sub HideAllScreens()
@@ -171,8 +174,9 @@ end sub
 sub BeginEvolution()
     HideAllScreens()
     m.screenName = "evolution"
+    m.evolutionGroup.opacity = 1
     m.evolutionGroup.visible = true
-    m.evolutionFade.control = "start"
+    m.top.SetFocus(true)
 end sub
 
 sub FinishEvolution()

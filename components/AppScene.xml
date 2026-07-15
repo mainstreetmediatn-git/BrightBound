@@ -12,7 +12,7 @@
       <Rectangle id="tail" translation="[790,480]" width="170" height="42" color="0x68D391FF" />
       <Rectangle id="body" translation="[930,445]" width="150" height="105" color="0x68D391FF" />
       <Label id="companionLabel" translation="[610,720]" width="700" height="60" horizAlign="center" font="font:MediumBoldSystemFont" />
-      <Label text="Press OK to continue learning" translation="[590,840]" width="740" height="60" horizAlign="center" font="font:MediumSystemFont" />
+      <Label text="OK: Continue Learning     DOWN: Launch Terminal" translation="[460,840]" width="1000" height="60" horizAlign="center" font="font:MediumSystemFont" />
     </Group>
     <Group id="quizGroup" visible="false">
       <Label text="Knowledge Challenge" translation="[120,80]" width="1000" height="80" font="font:LargeBoldSystemFont" />
@@ -34,6 +34,7 @@
       <Label text="Spark Tadpole evolved into Pathfinder Polliwog" translation="[300,815]" width="1320" height="70" horizAlign="center" font="font:MediumSystemFont" />
       <Label text="Press OK to return to the pond" translation="[500,930]" width="920" height="50" horizAlign="center" font="font:SmallSystemFont" />
     </Group>
+    <LaunchTerminalScreen id="launchTerminal" visible="false" />
     <Animation id="evolutionFade" duration="1.2" easeFunction="inOutQuad">
       <FloatFieldInterpolator key="[0.0,1.0]" keyValue="[0.0,1.0]" fieldToInterp="evolutionGroup.opacity" />
     </Animation>

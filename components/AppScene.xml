@@ -6,7 +6,7 @@
   <children>
     <Rectangle id="background" width="1920" height="1080" color="0x061426FF" />
 
-    <Group id="pondGroup">
+    <Group id="pondGroup" visible="false">
       <Rectangle width="1920" height="620" color="0x09233CFF" />
       <Rectangle translation="[0,620]" width="1920" height="460" color="0x0D4C63FF" />
       <Rectangle translation="[0,755]" width="1920" height="325" color="0x116A75FF" />
@@ -46,8 +46,8 @@
 
       <Rectangle translation="[560,750]" width="800" height="80" color="0x071A2CDD" />
       <Label id="companionLabel" translation="[610,765]" width="700" height="55" horizAlign="center" font="font:MediumBoldSystemFont" color="0x9DF5B8FF" />
-      <Rectangle translation="[470,930]" width="980" height="90" color="0x102C43EE" />
-      <Label text="OK: Explore Knowledge     DOWN: Visit the Launchpad" translation="[500,950]" width="920" height="50" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
+      <Rectangle translation="[390,930]" width="1140" height="90" color="0x102C43EE" />
+      <Label text="OK: Explore Knowledge   DOWN: Launchpad   BACK: Switch Explorer" translation="[420,950]" width="1080" height="50" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
     </Group>
 
     <Group id="quizGroup" visible="false">
@@ -102,5 +102,6 @@
 
     <LaunchTerminalScreen id="launchTerminal" visible="false" />
     <FlightScreen id="flightScreen" visible="false" />
+    <ProfileSelectionScreen id="profileSelection" visible="true" />
   </children>
 </component>

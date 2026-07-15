@@ -5,7 +5,9 @@ BrightBound is a child-safe learning world for Roku. A learner's companion grows
 ## Implemented vertical slice
 
 - Native Roku SceneGraph bootstrap
-- Persistent local learner profile
+- Startup profile selection with up to five independent learners
+- Automatic migration of the original single-profile save into profile slot 1
+- Separate companion, mastery, journey, beacon, galaxy, spacecraft, checkpoint, and settings data per profile
 - Pond home with Spark Tadpole
 - Remote-controlled addition activity
 - Concept discovery and evidence tracking
@@ -22,10 +24,16 @@ BrightBound is a child-safe learning world for Roku. A learner's companion grows
 
 ## Controls
 
+### Profile selection
+
+- `UP` / `DOWN` chooses one of five profile slots
+- `OK` enters an existing learner or creates a new Explorer in an empty slot
+
 ### Pond
 
 - `OK` begins a learning activity
 - `DOWN` opens the launch terminal
+- `BACK` returns to profile selection
 
 ### Launch terminal
 
@@ -45,10 +53,11 @@ BrightBound is a child-safe learning world for Roku. A learner's companion grows
 
 - `manifest` - Roku package metadata
 - `source/main.brs` - channel bootstrap
-- `source/SaveService.brs` - versioned registry persistence
+- `source/SaveService.brs` - five-profile registry persistence and migration
 - `source/MasteryEngine.brs` - evidence and evolution rules
 - `source/ContentService.brs` - validated JSON content loading
 - `data/` - spacecraft and galaxy catalogs
+- `components/ProfileSelectionScreen.*` - five-slot learner selection and creation
 - `components/AppScene.*` - application state coordination
 - `components/LaunchTerminalScreen.*` - craft and galaxy selection
 - `components/FlightScreen.*` - knowledge-beacon flight gameplay
@@ -60,11 +69,13 @@ Zip the repository contents so `manifest`, `source/`, `components/`, and `data/`
 ## Current limitations
 
 - Device compilation and focus behavior still require validation on physical Roku hardware.
+- New profiles receive automatic names such as `Explorer 2`; profile renaming is not implemented yet.
+- Profile deletion and parent PIN protection are not implemented yet.
 - Flight currently uses discrete lane steering rather than continuous movement.
 - The first learning activity contains six authored questions.
 - Companion and spacecraft visuals use native shapes until the original art pipeline is added.
-- Cloud synchronization, multiple profiles, audio narration, and later companion stages are not implemented yet.
+- Cloud synchronization, audio narration, and later companion stages are not implemented yet.
 
 ## Next phase
 
-Add moving hazards and collectibles, destination-specific missions, companion co-pilot behavior, reduced-motion handling, authored content catalogs, automated BrightScript tests, XML/reference validation, and packaging automation.
+Add profile naming and parent controls, moving hazards and collectibles, destination-specific missions, companion co-pilot behavior, reduced-motion handling, authored content catalogs, automated BrightScript tests, XML/reference validation, and packaging automation.

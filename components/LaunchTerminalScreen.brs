@@ -17,7 +17,7 @@ sub RenderTerminalView()
         m.shipSpecsText.text = "No spacecraft data is available."
     else
         craft = m.spacecrafts[m.selectedShipIdx]
-        m.shipSpecsText.text = "Model: " + craft.name + Chr(10) + Chr(10) + "Drive: " + UCase(craft.type) + Chr(10) + "Speed: " + craft.speed.ToStr() + "/10" + Chr(10) + "Handling: " + craft.handling
+        m.shipSpecsText.text = craft.name + Chr(10) + Chr(10) + "CLASS  " + UCase(craft.type) + Chr(10) + "SPEED  " + craft.speed.ToStr() + " / 10" + Chr(10) + "HANDLING  " + UCase(craft.handling)
     end if
 
     if m.galaxies.Count() = 0
@@ -32,23 +32,27 @@ sub RenderTerminalView()
     m.galaxyTitle.text = galaxy.name
     m.galaxyDesc.text = galaxy.description
 
-    manifestText = ""
-    for each planet in galaxy.planets
-        moonNames = "None"
-        if planet.moons.Count() > 0 then moonNames = planet.moons.Join(", ")
-        manifestText = manifestText + planet.name + " - " + planet.type + " - Moons: " + moonNames + Chr(10)
-    end for
-    m.planetaryManifestList.text = manifestText
+    planetNames = []
+    if galaxy.planets <> invalid
+        for each planet in galaxy.planets
+            planetNames.Push(planet.name)
+        end for
+    end if
+    if planetNames.Count() > 0
+        m.planetaryManifestList.text = planetNames.Join("  •  ")
+    else
+        m.planetaryManifestList.text = "No destinations are mapped yet."
+    end if
 
-    eventsText = ""
     events = BrightBound_GetUpcomingEvents(galaxy)
-    for each eventItem in events
-        label = eventItem.title
-        if eventItem.fictional = true then label = label + " (Fictional)"
-        eventsText = eventsText + eventItem.date + " - " + label + Chr(10)
-    end for
-    if eventsText = "" then eventsText = "No upcoming events in this catalog."
-    m.eventTickerText.text = eventsText
+    if events.Count() > 0
+        nextEvent = events[0]
+        eventLabel = nextEvent.title
+        if nextEvent.fictional = true then eventLabel = eventLabel + " (Fictional)"
+        m.eventTickerText.text = "NEXT EVENT  " + nextEvent.date + "  •  " + eventLabel
+    else
+        m.eventTickerText.text = "No upcoming events in this route catalog."
+    end if
 end sub
 
 function WrapIndex(value as Integer, count as Integer) as Integer

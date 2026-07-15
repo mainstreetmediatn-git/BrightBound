@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ProfileSelectionScreen" extends="Group">
+  <interface>
+    <field id="selectedProfileId" type="string" alwaysNotify="true" />
+    <field id="refreshNonce" type="integer" onChange="OnRefreshRequested" />
+  </interface>
+  <script type="text/brightscript" uri="pkg:/components/ProfileSelectionScreen.brs" />
+  <script type="text/brightscript" uri="pkg:/source/SaveService.brs" />
+  <children>
+    <Rectangle width="1920" height="1080" color="0x061426FF" />
+    <Rectangle translation="[0,700]" width="1920" height="380" color="0x0D4C63FF" />
+    <Rectangle translation="[0,850]" width="1920" height="230" color="0x116A75FF" />
+
+    <Rectangle translation="[190,115]" width="14" height="14" color="0xF4FBFFFF" />
+    <Rectangle translation="[420,75]" width="10" height="10" color="0xF4FBFFFF" />
+    <Rectangle translation="[730,145]" width="12" height="12" color="0xF4FBFFFF" />
+    <Rectangle translation="[1110,90]" width="14" height="14" color="0xF4FBFFFF" />
+    <Rectangle translation="[1440,135]" width="12" height="12" color="0xF4FBFFFF" />
+    <Rectangle translation="[1660,80]" width="15" height="15" color="0xF4FBFFFF" />
+    <Rectangle translation="[1510,125]" width="150" height="150" color="0xFFE6A3FF" />
+
+    <Rectangle translation="[120,45]" width="1680" height="190" color="0x071A2CDD" />
+    <Label text="WHO IS EXPLORING TODAY?" translation="[200,80]" width="1520" height="80" horizAlign="center" font="font:LargeBoldSystemFont" color="0x71F7D4FF" />
+    <Label text="Choose a learner profile or create a new explorer." translation="[300,165]" width="1320" height="45" horizAlign="center" font="font:MediumSystemFont" color="0xCFE8F4FF" />
+
+    <Rectangle id="profileFocus" translation="[300,285]" width="1320" height="105" color="0x71F7D444" />
+
+    <Rectangle translation="[320,300]" width="1280" height="75" color="0x102C43FF" />
+    <Label id="profileName0" translation="[365,315]" width="520" height="45" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
+    <Label id="profileMeta0" translation="[900,315]" width="650" height="45" horizAlign="right" font="font:SmallSystemFont" color="0x9DF5B8FF" />
+
+    <Rectangle translation="[320,420]" width="1280" height="75" color="0x102C43FF" />
+    <Label id="profileName1" translation="[365,435]" width="520" height="45" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
+    <Label id="profileMeta1" translation="[900,435]" width="650" height="45" horizAlign="right" font="font:SmallSystemFont" color="0x9DF5B8FF" />
+
+    <Rectangle translation="[320,540]" width="1280" height="75" color="0x102C43FF" />
+    <Label id="profileName2" translation="[365,555]" width="520" height="45" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
+    <Label id="profileMeta2" translation="[900,555]" width="650" height="45" horizAlign="right" font="font:SmallSystemFont" color="0x9DF5B8FF" />
+
+    <Rectangle translation="[320,660]" width="1280" height="75" color="0x102C43FF" />
+    <Label id="profileName3" translation="[365,675]" width="520" height="45" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
+    <Label id="profileMeta3" translation="[900,675]" width="650" height="45" horizAlign="right" font="font:SmallSystemFont" color="0x9DF5B8FF" />
+
+    <Rectangle translation="[320,780]" width="1280" height="75" color="0x102C43FF" />
+    <Label id="profileName4" translation="[365,795]" width="520" height="45" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
+    <Label id="profileMeta4" translation="[900,795]" width="650" height="45" horizAlign="right" font="font:SmallSystemFont" color="0x9DF5B8FF" />
+
+    <Rectangle translation="[520,925]" width="880" height="85" color="0x2F8F83FF" />
+    <Label text="UP / DOWN chooses     OK enters or creates a profile" translation="[555,945]" width="810" height="45" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF4FBFFFF" />
+  </children>
+</component>

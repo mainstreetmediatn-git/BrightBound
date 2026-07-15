@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="LaunchTerminalScreen" extends="Group">
+  <interface>
+    <field id="closeRequested" type="boolean" alwaysNotify="true" />
+  </interface>
+  <script type="text/brightscript" uri="pkg:/components/LaunchTerminalScreen.brs" />
+  <script type="text/brightscript" uri="pkg:/source/ContentService.brs" />
+  <children>
+    <Rectangle width="1920" height="1080" color="0x07111FFF" />
+    <Label text="BRIGHTBOUND LAUNCH TERMINAL" translation="[100,60]" width="1720" height="70" horizAlign="center" font="font:LargeBoldSystemFont" color="0x71F7D4FF" />
+    <Rectangle translation="[90,170]" width="540" height="760" color="0x11283DFF" />
+    <Label text="SELECT VEHICLE" translation="[130,215]" width="460" height="55" font="font:MediumBoldSystemFont" color="0x71F7D4FF" />
+    <Label id="shipSpecsText" translation="[130,310]" width="460" height="360" wrap="true" font="font:MediumSystemFont" />
+    <Label text="LEFT / RIGHT changes craft" translation="[130,820]" width="460" height="50" font="font:SmallSystemFont" color="0xB7C9D6FF" />
+    <Rectangle translation="[690,170]" width="1140" height="760" color="0x11283DFF" />
+    <Label id="galaxyTitle" translation="[740,215]" width="1040" height="60" font="font:LargeBoldSystemFont" />
+    <Label id="galaxyDesc" translation="[740,290]" width="1040" height="70" wrap="true" font="font:SmallSystemFont" color="0xD7E2EAFF" />
+    <Label text="PLANETARY MANIFEST" translation="[740,390]" width="1040" height="45" font="font:MediumBoldSystemFont" color="0xFFE68AFF" />
+    <Label id="planetaryManifestList" translation="[740,445]" width="1040" height="235" wrap="true" font="font:SmallSystemFont" />
+    <Label text="UPCOMING CELESTIAL EVENTS" translation="[740,700]" width="1040" height="45" font="font:MediumBoldSystemFont" color="0xC7A8FFFF" />
+    <Label id="eventTickerText" translation="[740,755]" width="1040" height="120" wrap="true" font="font:SmallSystemFont" />
+    <Label text="UP / DOWN changes galaxy - OK launches - BACK returns" translation="[390,975]" width="1140" height="50" horizAlign="center" font="font:SmallSystemFont" color="0x71F7D4FF" />
+  </children>
+</component>

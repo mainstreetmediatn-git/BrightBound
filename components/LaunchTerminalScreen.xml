@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="LaunchTerminalScreen" extends="Group">
+  <interface>
+    <field id="closeRequested" type="boolean" alwaysNotify="true" />
+    <field id="launchRequested" type="assocarray" alwaysNotify="true" />
+  </interface>
+  <script type="text/brightscript" uri="pkg:/components/LaunchTerminalScreen.brs" />
+  <script type="text/brightscript" uri="pkg:/source/ContentService.brs" />
+  <children>
+    <Rectangle width="1920" height="1080" color="0x070B2BFF" />
+    <Rectangle translation="[0,0]" width="1920" height="280" color="0x27135CFF" />
+    <Rectangle translation="[0,280]" width="1920" height="800" color="0x0B1742FF" />
+    <Rectangle translation="[0,900]" width="1920" height="180" color="0x111B4AFF" />
+    <Rectangle translation="[0,270]" width="1920" height="10" color="0x20E3FFFF" />
+    <Rectangle translation="[0,280]" width="1920" height="8" color="0xFF5D8FFF" />
+
+    <Rectangle translation="[145,90]" width="12" height="12" color="0xF7FAFFFF" />
+    <Rectangle translation="[375,65]" width="10" height="10" color="0x20E3FFFF" />
+    <Rectangle translation="[690,135]" width="14" height="14" color="0xFFD166FF" />
+    <Rectangle translation="[1040,72]" width="12" height="12" color="0xF7FAFFFF" />
+    <Rectangle translation="[1365,145]" width="10" height="10" color="0x8B5CF6FF" />
+    <Rectangle translation="[1710,85]" width="14" height="14" color="0xF7FAFFFF" />
+
+    <Rectangle translation="[70,42]" width="1780" height="175" color="0x120E38DD" />
+    <Rectangle translation="[70,42]" width="18" height="175" color="0xFF5D8FFF" />
+    <Label text="BRIGHTBOUND STARPORT" translation="[130,72]" width="1050" height="72" font="font:LargeBoldSystemFont" color="0x20E3FFFF" />
+    <Label text="Build your mission, then launch into a knowledge journey." translation="[130,145]" width="1050" height="44" font="font:MediumSystemFont" color="0xAFC4E8FF" />
+    <Rectangle translation="[1450,78]" width="290" height="88" color="0x8B5CF6FF" />
+    <Label text="MISSION READY" translation="[1480,100]" width="230" height="45" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF7FAFFFF" />
+
+    <Rectangle translation="[92,317]" width="520" height="500" color="0x03061688" />
+    <Rectangle translation="[78,303]" width="520" height="500" color="0x192A66FF" />
+    <Rectangle translation="[78,303]" width="16" height="500" color="0x20E3FFFF" />
+    <Label text="01  CHOOSE YOUR CRAFT" translation="[125,338]" width="425" height="48" font="font:MediumBoldSystemFont" color="0x20E3FFFF" />
+    <Rectangle translation="[125,405]" width="425" height="270" color="0x111B4AFF" />
+    <Rectangle translation="[125,405]" width="425" height="10" color="0x8B5CF6FF" />
+    <Label id="shipSpecsText" translation="[160,445]" width="355" height="200" wrap="true" font="font:MediumSystemFont" color="0xF7FAFFFF" />
+    <Rectangle translation="[125,710]" width="425" height="60" color="0x0B1037FF" />
+    <Label text="LEFT / RIGHT  CHANGE CRAFT" translation="[145,725]" width="385" height="34" horizAlign="center" font="font:SmallBoldSystemFont" color="0x5CF2B0FF" />
+
+    <Rectangle translation="[682,317]" width="555" height="500" color="0x03061688" />
+    <Rectangle translation="[668,303]" width="555" height="500" color="0x111B4AFF" />
+    <Rectangle translation="[668,303]" width="555" height="16" color="0xFFD166FF" />
+    <Label text="LAUNCHPAD" translation="[735,345]" width="420" height="55" horizAlign="center" font="font:LargeBoldSystemFont" color="0xFFD166FF" />
+
+    <Rectangle translation="[815,720]" width="280" height="62" color="0x03061699" />
+    <Rectangle translation="[800,705]" width="280" height="62" color="0xFF5D8FFF" />
+    <Rectangle translation="[860,615]" width="160" height="110" color="0x8B5CF6FF" />
+    <Rectangle translation="[900,440]" width="80" height="200" color="0xF7FAFFFF" />
+    <Rectangle translation="[875,515]" width="130" height="92" color="0x20E3FFFF" />
+    <Rectangle translation="[860,635]" width="45" height="88" color="0xFFD166FF" />
+    <Rectangle translation="[975,635]" width="45" height="88" color="0xFFD166FF" />
+    <Rectangle translation="[920,385]" width="40" height="55" color="0xFF5D8FFF" />
+
+    <Rectangle translation="[740,790]" width="410" height="80" color="0x8B5CF6FF" />
+    <Label text="OK  LAUNCH JOURNEY" translation="[775,810]" width="340" height="42" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF7FAFFFF" />
+
+    <Rectangle translation="[1292,317]" width="550" height="500" color="0x03061688" />
+    <Rectangle translation="[1278,303]" width="550" height="500" color="0x192A66FF" />
+    <Rectangle translation="[1278,303]" width="16" height="500" color="0xFF5D8FFF" />
+    <Label text="02  CHOOSE A DESTINATION" translation="[1325,338]" width="455" height="48" font="font:MediumBoldSystemFont" color="0xFF5D8FFF" />
+    <Label id="galaxyTitle" translation="[1325,402]" width="455" height="60" font="font:LargeBoldSystemFont" color="0xF7FAFFFF" />
+    <Label id="galaxyDesc" translation="[1325,470]" width="455" height="80" wrap="true" font="font:SmallSystemFont" color="0xAFC4E8FF" />
+
+    <Rectangle translation="[1325,575]" width="455" height="115" color="0x111B4AFF" />
+    <Label text="WORLDS ON THIS ROUTE" translation="[1355,590]" width="395" height="32" font="font:SmallBoldSystemFont" color="0xFFD166FF" />
+    <Label id="planetaryManifestList" translation="[1355,628]" width="395" height="52" wrap="true" font="font:SmallSystemFont" color="0xF7FAFFFF" />
+
+    <Rectangle translation="[1325,710]" width="455" height="60" color="0x0B1037FF" />
+    <Label id="eventTickerText" translation="[1350,723]" width="405" height="34" wrap="true" font="font:SmallSystemFont" color="0x5CF2B0FF" />
+
+    <Rectangle translation="[480,927]" width="960" height="92" color="0x03061688" />
+    <Rectangle translation="[468,915]" width="960" height="92" color="0x27135CFF" />
+    <Rectangle translation="[468,915]" width="18" height="92" color="0x20E3FFFF" />
+    <Label text="UP / DOWN  DESTINATION       OK  LAUNCH       BACK  POND" translation="[520,940]" width="860" height="42" horizAlign="center" font="font:MediumBoldSystemFont" color="0xF7FAFFFF" />
+  </children>
+</component>

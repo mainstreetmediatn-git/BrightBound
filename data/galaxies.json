@@ -1,0 +1,37 @@
+{
+  "galaxies": [
+    {
+      "id": "milky_way",
+      "name": "The Milky Way",
+      "description": "Our home galaxy and the Solar System learning map.",
+      "planets": [
+        {"name": "Mercury", "type": "Terrestrial", "moons": []},
+        {"name": "Venus", "type": "Terrestrial", "moons": []},
+        {"name": "Earth", "type": "Terrestrial", "moons": ["The Moon"]},
+        {"name": "Mars", "type": "Terrestrial", "moons": ["Phobos", "Deimos"]},
+        {"name": "Jupiter", "type": "Gas Giant", "moons": ["Io", "Europa", "Ganymede", "Callisto"]},
+        {"name": "Saturn", "type": "Gas Giant", "moons": ["Titan", "Enceladus", "Mimas"]},
+        {"name": "Uranus", "type": "Ice Giant", "moons": ["Titania", "Oberon", "Umbriel"]},
+        {"name": "Neptune", "type": "Ice Giant", "moons": ["Triton", "Nereid"]}
+      ],
+      "events": [
+        {"date": "2026-07-30", "title": "Southern Delta Aquariids", "description": "A late-July meteor-shower observing window."},
+        {"date": "2026-08-12", "title": "Total Solar Eclipse", "description": "Totality crosses parts of Greenland, Iceland, northern Spain, and a small area of northeastern Portugal."},
+        {"date": "2026-08-12", "title": "Perseid Meteor Shower Peak", "description": "The annual Perseid meteor shower reaches its peak observing period."}
+      ]
+    },
+    {
+      "id": "astraea_prime",
+      "name": "Astraea Prime",
+      "description": "An original fictional galaxy of glowing learning worlds.",
+      "planets": [
+        {"name": "Chroma", "type": "Bioluminescent", "moons": ["Prism", "Shard"]},
+        {"name": "Verdantia", "type": "Forest Core", "moons": ["Spore", "Fern"]},
+        {"name": "Aurelia", "type": "Nebula Forge", "moons": ["Solace"]}
+      ],
+      "events": [
+        {"date": "2026-11-15", "title": "Starlight Cascade", "description": "A fictional alignment that illuminates Astraea Prime's star lanes.", "fictional": true}
+      ]
+    }
+  ]
+}

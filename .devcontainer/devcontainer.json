@@ -1,0 +1,19 @@
+{
+  "name": "BrightBound API",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "containerEnv": {
+    "NODE_ENV": "development"
+  },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "BrightBound API",
+      "onAutoForward": "notify"
+    }
+  },
+  "postStartCommand": "node src/server.js > /tmp/brightbound-api.log 2>&1 &",
+  "remoteUser": "node"
+}
